@@ -1,5 +1,5 @@
 header {
-background-color: blanchedalmond;
+background-color:cornsilk;
 }
 
 body {
@@ -12,4 +12,28 @@ background-color: darkseagreen;
 
 h1 {
 color:blueviolet;
+font-family:Verdana, Geneva, Tahoma, sans-serif;
+text-align: center;
+}
+
+h3 {
+    text-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:darkblue;
+}
+
+/* #tasksInput { }*/
+
+#inputDiv {
+    /* background-color:beige; */
+    border-style: dotted 20px;
+    text-align: center;
+}
+
+#tasksList {
+    background-color:aquamarine;
+}
+
+#submit {
+    background-color: cornflowerblue;
 }
