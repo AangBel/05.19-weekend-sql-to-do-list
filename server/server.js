@@ -13,8 +13,8 @@ app.use(express.static('server/'));
 
 // Setup the songs router
 // to respond to requests from the `/songs` URL
-let songsRouter = require('/tasksRouter.js');
-app.use('/songs', songsRouter);
+let tasksRouter = require('/tasksRouter.js');
+app.use('/songs', tasksRouter);
 
 
 // Start express
