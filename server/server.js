@@ -9,12 +9,11 @@ app.use(bodyParser.json());
 
 // Serve "static assets" (html, css, client-side js)
 // from the server/public folder
-app.use(express.static('server/'));
+app.use(express.static('server/server.js'));
 
-// Setup the songs router
-// to respond to requests from the `/songs` URL
-let tasksRouter = require('/tasksRouter.js');
-app.use('/songs', tasksRouter);
+
+let tasksRouter = require('tasksRouter.js');
+app.use('/tasksRouter', tasksRouter);
 
 
 // Start express
