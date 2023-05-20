@@ -1,11 +1,20 @@
 $(document).ready(onReady);
 
+const e = require('express');
+
+
+
 function onReady() {
     $('#submit').on('click',activateSubmit);
-    event.preventDefault();
-}
+       e.preventDefault();
+        console.log('submit button is working');
+        activateSubmit();
+    };
+
+
 let inputObject = {
     task: $('#taskInput').val(),
+
 }
 
 function activateSubmit(){
@@ -15,7 +24,7 @@ function activateSubmit(){
         type: 'POST', 
         url: '/tasksRouter',
         data: {
-            task
+        inputObject:$('#taskInput').val()
         }
     }).then(function(response){
         getToDoList();
@@ -34,5 +43,7 @@ function getToDoList(){
         for (let i =0; i < response.length; i++){
             //append to DOM 
         }
-    }).catch
-}
+    }).catch(function(error){
+        console.log('error in GET', error);
+      });
+    } 

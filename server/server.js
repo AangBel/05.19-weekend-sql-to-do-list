@@ -1,23 +1,23 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-
 const app = express();
+const bodyParser = require('body-parser');
+const PORT = 5000;
+const tasksRouter = require('./routes/tasksRouter.js');
+app.use('/tasksRouter', tRouter);
 
-// Setup body parser - to translating request body into JSON
+//what does it mean by that app is not defined?
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Serve "static assets" (html, css, client-side js)
-// from the server/public folder
+
 app.use(express.static('server/server.js'));
 
 
-let tasksRouter = require('tasksRouter.js');
 app.use('/tasksRouter', tasksRouter);
 
 
 // Start express
-const PORT = 5000;
+
 app.listen(PORT, () => {
     console.log('up and running on port', PORT);
 });

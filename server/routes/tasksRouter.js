@@ -1,9 +1,15 @@
-app.use('/tasksRouter', tRouter);
+// app.use('/tasksRouter', tRouter);
 
-tRouter.post('/', (req, res) => {
+
+const express = require('express');
+const expressRouter = express.Router();
+
+const pool = require('../modules/pool');
+
+tasksRouter.post('/', (req, res) => {
     const meh = req.body;
-    console.log('reached the tRouter for post', meh);
-    const queryText = `CREATE TABLE "toDoList"
+    // console.log('reached the tRouter for post', meh);
+    let queryText = `CREATE TABLE "toDoList"
                         ("id", "task")
                         VALUES ($1, $2);
         `;
@@ -15,17 +21,20 @@ tRouter.post('/', (req, res) => {
 }).then((result) => {
     res.sendStatus(200);
 }).catch((error) => {
-    console.log('error at trouter post');
+    console.log('error at tRouter post');
     res.sendStatus(500);
 })
 
-tRouter.get('/', (req,res) =>{
-    const queryText = `SELECT * FROM "toDoList"`
-})Pool.query(queryText)
+tasksRouter.get('/', (req,res) =>{
+    let queryText = `SELECT * FROM "toDoList"`
+pool.query(queryText)
 .then((result) => {
     res.send(result.rows);
-}).catch((error) => {
+})
+.catch((error) => {
+    console.log("error at tRouter", error)
     send.sendStatus(500)
 })
+});
 
 module.exports = tasksRouter;
