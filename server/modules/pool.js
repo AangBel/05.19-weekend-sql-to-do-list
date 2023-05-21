@@ -1,7 +1,8 @@
 
 const pg = require('pg');
 
-let pool = new pg.Pool({
+//const or let?
+const pool = new pg.Pool({
   // name of our database
   // this will change for every app!
   database: 'weekend-to-do-app',

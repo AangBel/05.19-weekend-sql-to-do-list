@@ -12,33 +12,34 @@ function onReady() {
 
 
 //////create task function//////OK
-function createTask(event){
-    event.preventDefault();
+function createTask( ){
+    // event.preventDefault();
 
     console.log('activateSubmit function is working');
     let inputObject = $('#taskInput').val();
     console.log(inputObject);
-}
+};
 
 //// post to do list function/////OK
 function postToDoList(){
         $.ajax({
             type: 'POST', 
             url: '/tasks',
-            data: {inputObject}
+            //changing out from input being an object
+            data: inputObject
         }).then(function(response){
             console.log('response from server', response);
             postToDoList();
         }).catch(function(error){
             console.log('error in POST', error);
         }
-        )
+        );
     }
 
 
 //do a getToDoList function//OK
 function getToDoList(){
-    $('#tasksList').empty();
+    // $('#tasksList').empty();
     $.ajax({
         type: 'GET', 
         //tasks or tasksRouter????
@@ -64,14 +65,15 @@ function renderToDom(){
         </tr>
     `)
 }
-}
+};
 
 //do a putToDoList function
 function putToDoList(){
     $.ajax({
         type: 'PUT', 
         url: `/tasks/${taskId}`
-        data: ` {{inputObject}}`
+        //do i leave data in here?
+        // data: ` {{inputObject}}`
     })
     .then(function(response){
         getToDoList();
