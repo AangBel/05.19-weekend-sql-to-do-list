@@ -1,10 +1,13 @@
 header {
-background-color:cornsilk;
+background-color:rgb(185, 190, 194);
 }
 
 body {
 background-color: cornsilk;
-/* background-image: "server/public/styles/images/floral.jpg"; */
+background-image: url(https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fi.imgur.com%2FBe1savRh.jpg) ;
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
 }
 
 footer {
