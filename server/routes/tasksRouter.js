@@ -9,17 +9,15 @@ const pool = require("../modules/pool");
 // TODO - Add routes here...
 tasksRouter.post('/', (req, res) => {
     let meh = req.body;
-    console.log("reached the tasksRouter for post");
-
-
-
-let queryText = `INSERT INTO "toDoList" ("id", "task") VALUES ($1, $2);`;
-pool.query(queryText, [meh.id, meh.task])
+    console.log("reached the tasksRouter for post", meh);
+let queryText = `INSERT INTO "toDoList" ("task") VALUES ($1);`;
+const queryValues = [meh.task];
+pool.query(queryText, queryValues)
     .then(result => {
     res.sendStatus(200);
     })
     .catch(error => {
-    console.log('error at tRouter post');
+    console.log('error at tRouter post', error);
     res.sendStatus(500);
     });
 });
@@ -29,14 +27,14 @@ tasksRouter.get('/', (req, res) => {
   let queryText = `SELECT * FROM "toDoList" ORDER BY "id";`;
 pool.query(queryText)
 .then(result => {
-    console.log(result.rows);    
+    console.log('response', result.rows);    
     res.send(result.rows);
 })
 .catch(error => {
     console.log("error at tRouter GET", error);
     send.sendStatus(500);
-});
-});
+})
+})
 
 //PUT route
 

@@ -3,7 +3,8 @@ background-color:cornsilk;
 }
 
 body {
-background-color: cornsilk;
+/* background-color: cornsilk; */
+background-image: "server/public/styles/images/floral.jpg";
 }
 
 footer {
