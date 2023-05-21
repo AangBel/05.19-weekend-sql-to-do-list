@@ -1,4 +1,4 @@
 CREATE TABLE "toDoList"(
-"id" serial primary key,
-"task" varchar(100)
+"id" SERIAL PRIMARY KEY,
+"task" VARCHAR(100) NOT NULL
 );

@@ -1,6 +1,6 @@
 $(document).ready(onReady);
 
-//////Submit button function//////
+//////Submit button function//////OK
 function onReady() {
 
     $('#submit').on('click', createTask);
@@ -11,33 +11,32 @@ function onReady() {
     };
 
 
-//////create task function//////
+//////create task function//////OK
 function createTask(event){
     event.preventDefault();
 
     console.log('activateSubmit function is working');
-    const inputObject = $('#taskInput').val();
+    let inputObject = $('#taskInput').val();
     console.log(inputObject);
+}
 
-
-    function postToDoList(){
+//// post to do list function/////OK
+function postToDoList(){
         $.ajax({
             type: 'POST', 
-            url: '/tasksRouter',
-            data: {
-            inputObject: inputObject
-            }
+            url: '/tasks',
+            data: {inputObject}
         }).then(function(response){
-            console.log('Post tasklist on client js needs a bit more care');
+            console.log('response from server', response);
             postToDoList();
-        })
+        }).catch(function(error){
+            console.log('error in POST', error);
+        }
+        )
     }
 
 
-
-
-//do a getToDoList function 
-
+//do a getToDoList function//OK
 function getToDoList(){
     $('#tasksList').empty();
     $.ajax({
@@ -49,10 +48,14 @@ function getToDoList(){
     }).catch(function(error){ 
     console.log('error in GET', error);
     });
-
-    
 }
+
+
+//do a renderToDom function
+//still needs the changes to the background and all 
 function renderToDom(){
+    $('#tasksList').empty();
+    for (let i =0; i < response.length; i++){
     $('#tasksList').append(`
         <tr>
             <td>${response.task}</td>
@@ -61,7 +64,24 @@ function renderToDom(){
         </tr>
     `)
 }
+}
 
+//do a putToDoList function
+function putToDoList(){
+    $.ajax({
+        type: 'PUT', 
+        url: `/tasks/${taskId}`
+        data: ` {{inputObject}}`
+    })
+    .then(function(response){
+        getToDoList();
+    })
+    .catch(function(error){
+    console.log('error in PUT', error);
+    });
+}
+
+//do a deleteTask function
 function deleteTask(){
     console.log('delete button is working');
     const taskId = $(this).closest('tr').data('id');
@@ -70,24 +90,24 @@ function deleteTask(){
         method: 'DELETE',
         url: `/tasks/${taskId}`
     }).then(function(response){
-        console.log('delete task on client js needs a bit more care');
+        console.log('delete task is working on client js');
         getToDoList();
     }).catch(function(error){
         console.log('error in delete', error);
     })
 }
 
-function completeTask(){
-    console.log('complete button is working');
-    const taskId = $(this).closest('tr').data('id');
-    console.log('complete button is working', taskId);
-    $.ajax({
-        method: 'PUT',
-        url: `/tasks/${taskId}`
-    }).then(function(response){
-        console.log('complete task on client js needs a bit more care');
-        getToDoList();
-    }).catch(function(error){
-        console.log('error in complete', error);
-    })
-}
+// function completeTask(){
+//     console.log('complete button is working');
+//     const taskId = $(this).closest('tr').data('id');
+//     console.log('complete button is working', taskId);
+//     $.ajax({
+//         method: 'PUT',
+//         url: `/tasks/${taskId}`
+//     }).then(function(response){
+//         console.log('complete task on client js needs a bit more care');
+//         getToDoList();
+//     }).catch(function(error){
+//         console.log('error in complete', error);
+//     })
+// }
