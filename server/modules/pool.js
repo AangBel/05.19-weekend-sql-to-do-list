@@ -1,3 +1,4 @@
+
 const pg = require('pg');
 
 const pool = new pg.Pool({
@@ -10,5 +11,7 @@ const pool = new pg.Pool({
   // Postgres listens for network connections on port 5432 by default
   port: 5432
 })
+
+
 
 module.exports = pool;

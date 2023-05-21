@@ -1,24 +1,21 @@
 const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const PORT = 5000;
-const tasksRouter = require('./routes/tasksRouter.js');
-app.use('/tasksRouter', tasksRouter);
 
-//what does it mean by that app is not defined?
+const bodyParser = require('body-parser');
+
+const app = express();
+
+// Setup body parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Setup static files
+app.use(express.static('/server/public'));
 
-app.use(express.static('server/server.js'));
-
-
+let tasksRouter = require("./routes/tasksRouter");
 app.use('/tasksRouter', tasksRouter);
 
-
-// Start express
-
+const PORT = process.env.PORT || 5000;
+// Start listening for requests on a specific port
 app.listen(PORT, () => {
-    console.log('up and running on port', PORT);
+console.log("up and running on port", PORT);
 });
-
