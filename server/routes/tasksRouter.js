@@ -10,8 +10,8 @@ const pool = require("../modules/pool");
 tasksRouter.post('/', (req, res) => {
     let meh = req.body;
     console.log("reached the tasksRouter for post", meh);
-let queryText = `INSERT INTO "toDoList" ("task") VALUES ($1);`;
-const queryValues = [meh.task];
+let queryText = `INSERT INTO "toDoList" ("task", "complete") VALUES ($1, $2);`;
+const queryValues = [meh.task, meh.complete];
 pool.query(queryText, queryValues)
     .then(result => {
     res.sendStatus(200);
@@ -41,9 +41,13 @@ pool.query(queryText)
 //is using the id here the best choice?
 tasksRouter.put("/:id", (req, res) => {
 let id = req.params.id;
-let queryText = `UPDATE "toDoList" SET "task" = $1 WHERE "id" = $2;`;
+
+
+console.log("put route is working", id)
+
+let queryText = `UPDATE "toDoList" SET "task" = $1 WHERE "complete" = $2;`;
 pool
-    .query(queryText, [req.body.task, req.params.id])
+    .query(queryText, [req.body.task, req.params.complete])
     .then(result => {
     res.sendStatus(200);
     })
@@ -56,9 +60,12 @@ pool
 //DELETE route
 tasksRouter.delete("/:id", (req, res) => {
 let queryText = `DELETE FROM "toDoList" WHERE "id" = $1;`;
+let taskId = req.params.id;
+
 pool
-    .query(queryText, [req.params.id])
+    .query(queryText, [taskId])
     .then((result) => {
+        console.log("delete task is working on client js", result.rows);
     res.sendStatus(200);
     })
     .catch((error) => {
@@ -66,5 +73,18 @@ pool
     res.sendStatus(500);
     });
 });
+
+// tasksRouter.complete("/:id", (req, res) => {
+// // let queryText = `UPDATE "toDoList" SET "complete" = $1 WHERE "id" = $2;`;
+// pool.query(queryText, [req.body.complete, req.params.id])
+//     .then(result => {
+//     res.sendStatus(200);
+//     })
+//     .catch(error => {
+//     console.log("error at tRouter complete", error);
+//     res.sendStatus(500);
+//     });
+// });
+
 
 module.exports = tasksRouter;

@@ -12,28 +12,33 @@ function onReady() {
 //////create task function//////OK
 function createTask(event) {
   console.log("activateSubmit function is working");
-  let inputObject = $("#taskInput").val();
+
+  let inputObject = {
+    task: $("#taskInput").val(),
+    complete: false,
+  };
   $("#taskInput").val("");
-//   postToDoList(inputObject);
-  console.log('this is input object', inputObject);
-// }
+  //   postToDoList(inputObject);
+  console.log("this is input object", inputObject);
 
-// //// post to do list function/////OK
-// function postToDoList(event){
-    event.preventDefault();
 
-    console.log('in postToDoList')
+
+  // function postToDoList(event){
+  // event.preventDefault();
+
+  console.log("in postToDoList");
   $.ajax({
-    type: 'POST',
-    url: '/tasks',
-    //changing out from input being an object
-    data: { task: inputObject }
+    type: "POST",
+    url: "/tasks",
+    data: inputObject 
+   
   })
-    .then(function (response) {
+
+    .then((response) => {
       console.log("response from server", response);
       getToDoList();
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log("error in POST", error);
     });
 }
@@ -42,28 +47,29 @@ function createTask(event) {
 function getToDoList() {
   // $('#tasksList').empty();
   $.ajax({
-    type: 'GET',
+    type: "GET",
     //tasks or tasksRouter????
-    url: '/tasks',
+    url: "/tasks",
   })
-    .then(function(response) {
+    .then(function (response) {
       console.log("get list response", response);
       renderToDom(response);
     })
-    .catch(function(error) {
-      console.log('error in get', error);
+    .catch(function (error) {
+      console.log("error in get", error);
     });
 }
 
 //do a renderToDom function
 //still needs the changes to the background and all
 function renderToDom(response) {
-    console.log('in renderToDom', response);
+  console.log("in renderToDom", response);
   $("#tasksList").empty();
   for (let i = 0; i < response.length; i++) {
     $("#tasksList").append(`
-        <tr>
+        <tr data-id="${response[i].id}">
             <td>${response[i].task}</td>
+            <td>${response[i].complete}</td>
             <td><button class="completeButton">Complete</button></td>
             <td><button class="deleteButton">Delete</button></td>
         </tr>
@@ -74,13 +80,13 @@ function renderToDom(response) {
 //do a putToDoList function
 function putToDoList() {
   $.ajax({
-    type: 'PUT',
+    type: "PUT",
     url: `/tasks/${taskId}`,
     //do i leave data in here?
     // data: ` {{inputObject}}`
   })
     .then(function (response) {
-        console.log("response from server", response);
+      console.log("response from server", response);
       getToDoList();
     })
     .catch(function (error) {
@@ -94,13 +100,16 @@ function deleteTask() {
   const taskId = $(this).closest("tr").data("id");
   console.log("delete button is working", taskId);
   $.ajax({
-    method: 'DELETE',
+    method: "DELETE",
     url: `/tasks/${taskId}`,
   })
-    .then(function (response) {
-      console.log("delete task is working on client js");
+    .then((response) => {
+      console.log("delete task is working on client js", response);
       getToDoList();
     })
+    .catch((error) => {
+      console.log("error in delete", error);
+    });
 }
 
 function completeTask() {
@@ -108,7 +117,7 @@ function completeTask() {
   const taskId = $(this).closest("tr").data("id");
   console.log("complete button is working", taskId);
   $.ajax({
-    method: 'PUT',
+    method: "PUT",
     url: `/tasks/${taskId}`,
   })
     .then(function (response) {
