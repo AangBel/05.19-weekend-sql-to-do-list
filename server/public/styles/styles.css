@@ -3,8 +3,8 @@ background-color:cornsilk;
 }
 
 body {
-/* background-color: cornsilk; */
-background-image: "server/public/styles/images/floral.jpg";
+background-color: cornsilk;
+/* background-image: "server/public/styles/images/floral.jpg"; */
 }
 
 footer {
@@ -15,6 +15,7 @@ h1 {
 color:blueviolet;
 font-family:Verdana, Geneva, Tahoma, sans-serif;
 text-align: center;
+font-size: 100px;
 }
 
 h3 {
@@ -31,10 +32,36 @@ h3 {
     text-align: center;
 }
 
+label {
+    font-size: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+input{
+    background-color: rgba(100, 148, 237, 0.287);
+    width:350px;
+}
+tr{
+    background-color: rgba(189, 100, 237, 0.529);
+}
 #tasksList {
     background-color:aquamarine;
 }
 
 #submit {
     background-color: cornflowerblue;
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+button{
+    background-color: rgba(100, 148, 237, 0.287);
 }

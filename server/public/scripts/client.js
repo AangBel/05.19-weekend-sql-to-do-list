@@ -4,7 +4,7 @@ $(document).ready(onReady);
 function onReady() {
   $("#submit").on("click", createTask);
   $("#tasksList").on("click", ".deleteButton", deleteTask);
-  $("#tasksList").on("click", ".completeButton", completeTask);
+  $("#tasksList").on("click", ".completeButton", completeTask)
   console.log("submit button is working");
   getToDoList();
 }
@@ -74,8 +74,11 @@ function renderToDom(response) {
             <td><button class="deleteButton">Delete</button></td>
         </tr>
     `);
-  }
+
 }
+}
+
+
 
 //do a putToDoList function
 function putToDoList() {
@@ -116,6 +119,14 @@ function completeTask() {
   console.log("complete button is working");
   const taskId = $(this).closest("tr").data("id");
   console.log("complete button is working", taskId);
+
+  if($(this).closest("tr").data("complete") === true){
+    $(this).closest("tr").css("background-color", "green");
+    } 
+    
+     
+
+  
   $.ajax({
     method: "PUT",
     url: `/tasks/${taskId}`,
